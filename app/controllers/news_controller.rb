@@ -36,7 +36,7 @@ class NewsController < ApplicationController
     if @news.update_attributes(news_params)
       render json: @news, status: :ok
     else
-      render json: {message: "Not Found!"}}, status: :not_found
+      render json: {message: "Not Found!"}, status: :not_found
     end
   end
 
@@ -47,6 +47,7 @@ class NewsController < ApplicationController
       render json: {message: "Not Found!"}, status: :not_found
     else
       render json: @news, status: :ok
+    end
   end
 
   private
