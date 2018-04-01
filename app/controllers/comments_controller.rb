@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
+  before_action :find_noticium only: [:create, :destroy]
 
   # GET /comments
   # GET /comments.json
@@ -12,7 +13,7 @@ class CommentsController < ApplicationController
   # GET /comments/1.json
   def show
     if @comment.nil?
-      render json: {erro: "Not Found"}, status: :not_found
+      render json: {error: "Not Found"}, status: :not_found
     else
       render json: @comment, status: :ok
     end
@@ -21,7 +22,7 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @noticia.comments.create(comment_params)
 
     if @comment.save
       render json: @comment, status: :created
@@ -36,7 +37,7 @@ class CommentsController < ApplicationController
     if @comment.update_attributes(comment_params)
       render json: @comment, status: :ok
     else
-      render json: {message: "Not found"}, status: :not_found
+      render json: {error: "Not found"}, status: :not_found
     end
   end
 
