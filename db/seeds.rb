@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 noticias = []
+comentarios = []
 
 30.times do |x|
   titulo = Faker::Name.name
@@ -18,3 +19,15 @@ noticias = []
 end
 
 New.create(noticias)
+
+
+New.all.each do |noticia|
+  rand(1..10).times do |x|
+    nombre = Faker::Name.name
+    noticia_id = noticia.id
+    content = Faker::Lorem.sentence(10)
+    created_at = Faker::Time.between(noticia.created_at, Date.today)
+    updated_at = Faker::Time.between(created_at, Date.today)
+    Comment.create({author: nombre, comment: content, new_id: noticia_id, created_at: created_at, updated_at: updated_at})
+  end
+end

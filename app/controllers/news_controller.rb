@@ -12,7 +12,7 @@ class NewsController < ApplicationController
   # GET /news/1.json
   def show
     if @news.nil?
-      render json: {message: "Not Found!"}, status: :not_found
+      render json: {erro: "Not Found"}, status: :not_found
     else
       render json: @news, status: :ok
     end
@@ -36,7 +36,7 @@ class NewsController < ApplicationController
     if @news.update_attributes(news_params)
       render json: @news, status: :ok
     else
-      render json: {message: "Not Found!"}, status: :not_found
+      render json: {message: "Not found"}, status: :not_found
     end
   end
 
@@ -44,7 +44,7 @@ class NewsController < ApplicationController
   # DELETE /news/1.json
   def destroy
     if @news.nil?
-      render json: {message: "Not Found!"}, status: :not_found
+      render json: {error: "Not found"}, status: :not_found
     else
       render json: @news, status: :ok
     end
@@ -56,6 +56,7 @@ class NewsController < ApplicationController
       @news = New.where(:id => params[:id]).first
     end
 
+  
     # Never trust parameters from the scary internet, only allow the white list through.
     def news_params
       params.require(:news).permit(:title, :string, :subtitle, :body)
