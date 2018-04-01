@@ -58,7 +58,7 @@ class CommentsController < ApplicationController
     end
 
     def find_noticium
-      @noticia = New.find(params[:news_id])
+      @noticia = New.where(:id => params[:news_id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
