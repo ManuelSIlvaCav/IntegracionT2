@@ -11,6 +11,7 @@ class NewsController < ApplicationController
   # GET /news/1
   # GET /news/1.json
   def show
+    render json: @news, status: :ok
   end
 
   # POST /news
@@ -19,7 +20,7 @@ class NewsController < ApplicationController
     @news = New.new(news_params)
 
     if @news.save
-      render :show, status: :created, location: @news
+      render json: @news, status: :created
     else
       render json: @news.errors, status: :unprocessable_entity
     end
@@ -29,7 +30,7 @@ class NewsController < ApplicationController
   # PATCH/PUT /news/1.json
   def update
     if @news.update(news_params)
-      render :show, status: :ok, location: @news
+      head :no_content
     else
       render json: @news.errors, status: :unprocessable_entity
     end
@@ -39,6 +40,7 @@ class NewsController < ApplicationController
   # DELETE /news/1.json
   def destroy
     @news.destroy
+    head :no_content
   end
 
   private
