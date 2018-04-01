@@ -4,6 +4,7 @@ class New < ApplicationRecord
   #has_many :comments, :dependent => :delete_all
 
   def truncar
+
     if body.length <= 500
       cuerpo
     else
