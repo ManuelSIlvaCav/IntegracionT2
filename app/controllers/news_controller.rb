@@ -43,9 +43,11 @@ class NewsController < ApplicationController
   # DELETE /news/1
   # DELETE /news/1.json
   def destroy
+
     if @news.nil?
       render json: {error: "Not found"}, status: :not_found
     else
+      @news.destroy
       render json: @news, status: :ok
     end
   end
