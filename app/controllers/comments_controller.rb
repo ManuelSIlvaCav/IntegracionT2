@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
-  before_action :find_noticium only: [:create, :destroy]
+  before_action :find_noticium, only: [:create, :destroy]
 
   # GET /comments
   # GET /comments.json
