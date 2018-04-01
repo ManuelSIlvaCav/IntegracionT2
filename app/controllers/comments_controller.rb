@@ -57,7 +57,7 @@ class CommentsController < ApplicationController
     end
 
     def find_noticium
-      @noticium = Noticium.find(params[:noticium_id])
+      @noticia = New.find(params[:new_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
