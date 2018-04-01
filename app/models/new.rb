@@ -6,7 +6,7 @@ class New < ApplicationRecord
   def truncar
 
     if body.length <= 500
-      cuerpo
+      body
     else
       body.truncate(500, :separator => ' ') + "..."
     end

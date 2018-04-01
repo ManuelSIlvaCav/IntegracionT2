@@ -5,13 +5,15 @@ class NewsController < ApplicationController
   # GET /news.json
   def index
     @news = New.order('created_at DESC')
-    render json: @news, status: :ok
+    render json: @news.as_json(except: [:copy], methods: [:truncar]), status: :ok
   end
 
   # GET /news/1
   # GET /news/1.json
   def show
-    render json: @news, status: :ok
+
+      render json: @news, status: :ok
+    
   end
 
   # POST /news
