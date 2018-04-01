@@ -5,15 +5,17 @@ class NewsController < ApplicationController
   # GET /news.json
   def index
     @news = New.order('created_at DESC')
-    render json: @news.as_json(except: [:copy], methods: [:truncar]), status: :ok
+    render json: @news.as_json(except: [:body], methods: [:short_body]), status: :ok
   end
 
   # GET /news/1
   # GET /news/1.json
   def show
-
+    if @news.nil?
+      render json: {message: "Not Found!"}, status: :not_found
+    else
       render json: @news, status: :ok
-    
+    end
   end
 
   # POST /news
@@ -31,24 +33,26 @@ class NewsController < ApplicationController
   # PATCH/PUT /news/1
   # PATCH/PUT /news/1.json
   def update
-    if @news.update(news_params)
-      head :no_content
+    if @news.update_attributes(news_params)
+      render json: @news, status: :ok
     else
-      render json: @news.errors, status: :unprocessable_entity
+      render json: {message: "Not Found!"}}, status: :not_found
     end
   end
 
   # DELETE /news/1
   # DELETE /news/1.json
   def destroy
-    @news.destroy
-    head :no_content
+    if @news.nil?
+      render json: {message: "Not Found!"}, status: :not_found
+    else
+      render json: @news, status: :ok
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_news
-      @news = New.find(params[:id])
+      @news = New.where(:id => params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

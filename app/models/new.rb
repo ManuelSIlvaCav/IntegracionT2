@@ -3,12 +3,11 @@ class New < ApplicationRecord
   validates :title, presence: true
   #has_many :comments, :dependent => :delete_all
 
-  def truncar
-
-    if body.length <= 500
-      body
+  def short_body
+    if self.body.length <= 500
+      self.body
     else
-      body.truncate(500, :separator => ' ') + "..."
+      self.body.truncate(500, :separator => ' ') + "..."
     end
   end
 end
